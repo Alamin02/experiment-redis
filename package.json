@@ -5,9 +5,9 @@
   "author": "alamin",
   "license": "MIT",
   "scripts": {
-    "scraper:link": "nodemon link-scraper/index.js",
-    "scraper:data": "nodemon data-scraper/index.js",
-    "server": "nodemon server/index.js",
+    "scraper:link": "node link-scraper/index.js",
+    "scraper:data": "node data-scraper/index.js",
+    "server": "node server/index.js",
     "start": "run-p scraper:link scraper:data server"
   },
   "devDependencies": {
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "bull": "^3.13.0",
+    "debug": "^4.1.1",
     "express": "^4.17.1",
     "ioredis": "^4.16.0",
     "nedb": "^1.8.0",

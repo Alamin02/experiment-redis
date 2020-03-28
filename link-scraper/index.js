@@ -1,26 +1,26 @@
-const Subscriber = require("./subscriber");
-const Publisher = require("./publisher")
-const Queue = require('bull');
-const scraperRunner = require('./scraper1/index');
+const Queue = require("bull");
 
-const scraperQueue = new Queue('scrape link');
+const subscriber = require("./lib/subscriber");
+const publisher = require("./lib/publisher");
+const runner = require("./runner");
 
-Subscriber.init(scraperQueue)
+const scraperQueue = new Queue("scrape link");
+
+// Init subscriber
+subscriber(scraperQueue);
 
 // Process queue
-scraperQueue.process(async function (job, done) {
-
-    const dataUpdateCallback = data => {
-        const stringifiedData = JSON.stringify(data)
-
-        // Publish "level1-taks" each time a link is scraped
-        Publisher.publish("level1-task", stringifiedData);
-    }
-
-    await scraperRunner(dataUpdateCallback);
-
-    // Publish "on-finish-level0"
-    Publisher.publish("on-finish-level0", "Level 0 Scraping is done for request - ", job.id);
-
-    done();
+scraperQueue.process(async function(job, done) {
+	const dataUpdateCallback = data => {
+		// Publish "level1-taks" each time a link is scraped
+		publisher("level1-task", JSON.stringify(data));
+	};
+	await runner(dataUpdateCallback);
+	// Publish "on-finish-level0"
+	publisher(
+		"on-finish-level0",
+		"Level 0 Scraping is done for request - ",
+		job.id
+	);
+	done();
 });
