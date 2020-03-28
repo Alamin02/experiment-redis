@@ -1,5 +1,4 @@
 const Scraper = require("./scraper");
-const { debug } = require("../utils");
 
 const bot = new Scraper();
 
@@ -7,7 +6,7 @@ async function init() {
 	try {
 		await bot.create();
 	} catch (error) {
-		debug(error);
+		console.log(error);
 	}
 }
 
@@ -19,7 +18,7 @@ async function runner(url, dataUpdateCallback) {
 		await bot.closePage();
 		return data;
 	} catch (error) {
-		debug(error);
+		console.log(error);
 	}
 }
 
@@ -27,7 +26,7 @@ async function destroy() {
 	try {
 		await bot.close();
 	} catch (error) {
-		debug(error);
+		console.log(error);
 	}
 }
 

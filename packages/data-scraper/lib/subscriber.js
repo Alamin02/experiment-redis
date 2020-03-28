@@ -1,7 +1,5 @@
 const Redis = require("ioredis");
 
-const { debug } = require("../utils");
-
 function subscriber(queue) {
 	const sub = new Redis();
 	// Subscribe to "level1-task" and
@@ -15,7 +13,7 @@ function subscriber(queue) {
 				queue.add(data);
 				break;
 			default:
-				debug("Eh?");
+				console.log("Eh?");
 				break;
 		}
 	});

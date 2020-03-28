@@ -1,15 +1,22 @@
 const puppeteer = require("puppeteer");
 
 class Chrome {
+	constructor() {
+		this.page = null;
+		this.browser = null;
+	}
+
+	startPage = async () => {
+		this.page = await this.browser.newPage();
+	};
+
 	launch = async () => {
 		this.browser = await puppeteer.launch({
 			headless: false,
 			defaultViewport: null,
-			args: ["--start-maximized"],
-			waitUntil: "load",
-			timeout: 0
+			args: ["--start-maximized"]
 		});
-		this.page = await this.browser.newPage();
+		await this.startPage();
 	};
 
 	click = async selector => {
@@ -55,8 +62,12 @@ class Chrome {
 		return url;
 	};
 
-	close = async () => {
+	closePage = async () => {
 		await this.page.close();
+	};
+
+	close = async () => {
+		await this.closePage();
 		await this.browser.close();
 	};
 }

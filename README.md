@@ -1,10 +1,10 @@
 Start server
 
-ENV
 ```sh
-SERVER_PORT=3000
-```
-
-```sh
-DEBUG=server dotenv -e .env yarn server
+# Start all
+yarn start
+# Start link scraper
+yarn scraper:link
+# Start data scraper
+yarn scraper:data
 ```

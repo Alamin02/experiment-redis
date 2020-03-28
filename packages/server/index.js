@@ -1,7 +1,6 @@
 const express = require("express");
 const Redis = require("ioredis");
 const DataStore = require("nedb");
-const debug = require("debug")("exp:redis:server");
 
 const port = process.env.SERVER_PORT || 3000;
 const pub = new Redis();
@@ -11,7 +10,7 @@ const db = new DataStore({ filename: "./db/database" });
 const app = express();
 
 // Init db
-db.loadDatabase(err => err && debug(err));
+db.loadDatabase(err => err && console.log(err));
 
 // User request end point
 app.get("/", (req, res) => {
@@ -28,11 +27,11 @@ sub.on("message", function(channel, message) {
 		const data = JSON.parse(message);
 
 		db.insert(data, function(err, newData) {
-			debug(newData);
+			console.log(newData);
 		});
 	} else if (channel === "on-finish-level0") {
-		debug(message);
+		console.log(message);
 	}
 });
 
-app.listen(port, () => debug(`Server is listening on port ${port}!`));
+app.listen(port, () => console.log(`Server is listening on port ${port}!`));

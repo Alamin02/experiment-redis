@@ -1,0 +1,14 @@
+{
+  "name": "link-scraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "chrome": "^1.0.0",
+    "on-change": "^2.0.1"
+  }
+}

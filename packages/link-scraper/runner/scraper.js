@@ -1,4 +1,5 @@
-const Chrome = require("../lib/chrome");
+const Chrome = require("chrome");
+
 const Extractor = require("../lib/extractor");
 
 class Scraper extends Chrome {

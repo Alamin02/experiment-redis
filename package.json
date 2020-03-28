@@ -1,26 +1,22 @@
 {
-  "name": "deeplinking-redis",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "alamin",
-  "license": "MIT",
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "scraper:link": "node link-scraper/index.js",
-    "scraper:data": "node data-scraper/index.js",
-    "server": "node server/index.js",
-    "start": "run-p scraper:link scraper:data server"
+    "bootstrap": "lerna bootstrap --force-local",
+    "scraper:link": "lerna exec --stream --scope=link-scraper -- yarn start",
+    "scraper:data": "lerna exec --stream --scope=data-scraper -- yarn start",
+    "server": "lerna exec --stream --scope=server -- yarn start",
+    "start": "concurrently \"yarn scraper:data\" \"yarn scraper:link\" \"yarn run server\""
   },
   "devDependencies": {
-    "nodemon": "^2.0.2",
-    "npm-run-all": "^4.1.5"
+    "concurrently": "^5.1.0",
+    "lerna": "^3.13.1"
   },
   "dependencies": {
     "bull": "^3.13.0",
-    "debug": "^4.1.1",
-    "express": "^4.17.1",
-    "ioredis": "^4.16.0",
-    "nedb": "^1.8.0",
-    "on-change": "^2.0.1",
-    "puppeteer": "^2.1.1"
+    "ioredis": "^4.16.0"
   }
 }

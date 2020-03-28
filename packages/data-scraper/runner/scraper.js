@@ -1,4 +1,4 @@
-const Chrome = require("../lib/chrome");
+const Chrome = require("chrome");
 
 class Scraper extends Chrome {
 	create = async () => {

@@ -1,5 +1,4 @@
 const Scraper = require("./scraper");
-const { debug } = require("../utils");
 
 async function runner(dataUpdateCallback) {
 	try {
@@ -10,7 +9,7 @@ async function runner(dataUpdateCallback) {
 		await bot.scrape();
 		await bot.close();
 	} catch (error) {
-		debug(error);
+		console.log(error);
 	}
 }
 
