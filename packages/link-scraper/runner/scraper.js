@@ -1,41 +1,39 @@
-const Chrome = require("chrome");
+const Chrome = require('chrome');
 
-const Extractor = require("../lib/extractor");
+const Extractor = require('../lib/extractor');
 
 class Scraper extends Chrome {
-	init = async (startUrl, dataUpdateCallback) => {
-		await this.launch();
-		await this.navigate(startUrl);
+  init = async (startUrl, dataUpdateCallback) => {
+    await this.launch();
+    await this.navigate(startUrl);
 
-		this.extractor = new Extractor(dataUpdateCallback);
+    this.extractor = new Extractor(dataUpdateCallback);
 
-		// TODO: Handle these conditions
-		this.page.on("close", () => {});
-		this.page.on("error", () => {});
-	};
+    // TODO: Handle these conditions
+    this.page.on('close', () => {});
+    this.page.on('error', () => {});
+  };
 
-	stop = async () => {
-		await this.close();
-	};
+  stop = async () => {
+    await this.close();
+  };
 
-	scrape = async () => {
-		const links = await this.getLinks(".ant-card-head-title > a");
+  scrape = async () => {
+    const links = await this.getLinks('.ant-card-head-title > a');
 
-		if (links.length > 0) {
-			links.map(link => this.extractor.insertData(link));
+    if (links.length > 0) {
+      links.map(link => this.extractor.insertData(link));
 
-			await Promise.all([
-				await this.click(".navigate-next"),
-				await this.wait(".navigate-next")
-			]);
+      await Promise.all([
+        await this.click('.navigate-next'),
+        await this.wait('.navigate-next'),
+      ]);
 
-			await this.scrape();
-			return;
-		} else {
-			this.stop();
-			return;
-		}
-	};
+      await this.scrape();
+    } else {
+      this.stop();
+    }
+  };
 }
 
 module.exports = Scraper;
