@@ -1,0 +1,13 @@
+{
+  "name": "chrome",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "puppeteer": "^2.1.1"
+  }
+}

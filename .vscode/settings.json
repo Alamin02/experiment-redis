@@ -1,0 +1,12 @@
+{
+  "files.watcherExclude": {
+    "**/node_modules/**": true
+  },
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.eol": "\n",
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false,
+  "prettier.singleQuote": true,
+  "eslint.enable": true,
+}
